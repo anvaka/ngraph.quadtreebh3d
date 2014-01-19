@@ -1,0 +1,21 @@
+{
+  "name": "ngraph.quadtreebh3d",
+  "version": "0.0.0",
+  "description": "Quad Tree data structure for Barnes-Hut simulation in 3d space",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ngraph",
+    "quadtree",
+    "barnes",
+    "hut"
+  ],
+  "author": "Andrei Kashcha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anvaka/ngraph.quadtreebh3d"
+  }
+}
