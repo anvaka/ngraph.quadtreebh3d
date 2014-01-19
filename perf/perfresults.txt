@@ -1,0 +1,3 @@
+Bodies #1000
+Theta 1.2 x 4.43 ops/sec ±1.46% (15 runs sampled)
+Theta 0.8 x 4.16 ops/sec ±7.39% (15 runs sampled)
