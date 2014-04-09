@@ -1,8 +1,10 @@
 # ngraph.quadtreebh3d
 
-Quad Tree data structure for Barnes-Hut simulation in 3d space
+Quad Tree data structure for Barnes-Hut simulation in 3d space. Technically it should be named OctTree, since it's not a quad tree. But for parity with 2d interface it's currently called quadtree. Let me know if you think it should be changed :). 
 
-[![Build Status](https://travis-ci.org/anvaka/ngraph.quadtreebh3d.png?branch=master)](https://travis-ci.org/anvaka/ngraph.quadtreebh3d). This project is part of [ngraph family](https://github.com/anvaka/ngraph).
+This project is part of [ngraph family](https://github.com/anvaka/ngraph). If you need 2d quad tree follow to [ngraph.quadtreebh](https://github.com/anvaka/ngraph.quadtreebh).
+
+[![Build Status](https://travis-ci.org/anvaka/ngraph.quadtreebh3d.png?branch=master)](https://travis-ci.org/anvaka/ngraph.quadtreebh3d). 
 
 Reference
 ---------
