@@ -4,13 +4,13 @@
  *
  * http://www.cs.princeton.edu/courses/archive/fall03/cs126/assignments/barnes-hut.html
  *
- * NOTE: This module duplicates a lot of code from 2d case. Primary reason for 
+ * NOTE: This module duplicates a lot of code from 2d case. Primary reason for
  * this is performance. Every time I tried to abstract away vector opertaions
  * I had negative impact on performance. So in this case I'm sacrifying code
  * reuse in favor of speed
  */
 
-module.exports = function (options) {
+module.exports = function(options) {
   options = options || {};
   options.gravity = typeof options.gravity === 'number' ? options.gravity : -1;
   options.theta = typeof options.theta === 'number' ? options.theta : 0.8;
@@ -28,14 +28,18 @@ module.exports = function (options) {
 
     nodesCache = [],
     currentInCache = 0,
-    newNode = function () {
+    newNode = function() {
       // To avoid pressure on GC we reuse nodes.
       var node = nodesCache[currentInCache];
       if (node) {
-        node.quads[0] = null; node.quads[4] = null;
-        node.quads[1] = null; node.quads[5] = null;
-        node.quads[2] = null; node.quads[6] = null;
-        node.quads[3] = null; node.quads[7] = null;
+        node.quads[0] = null;
+        node.quads[4] = null;
+        node.quads[1] = null;
+        node.quads[5] = null;
+        node.quads[2] = null;
+        node.quads[6] = null;
+        node.quads[3] = null;
+        node.quads[7] = null;
         node.body = null;
         node.mass = node.massX = node.massY = node.massZ = 0;
         node.left = node.right = node.top = node.bottom = node.front = node.back = 0;
@@ -51,7 +55,7 @@ module.exports = function (options) {
     root = newNode(),
 
     // Inserts body to the tree
-    insert = function (newBody) {
+    insert = function(newBody) {
       insertStack.reset();
       insertStack.push(root, newBody);
 
@@ -153,11 +157,13 @@ module.exports = function (options) {
       }
     },
 
-    update = function (sourceBody) {
+    update = function(sourceBody) {
       var queue = updateQueue,
         v,
         dx, dy, dz,
-        r, fx = 0, fy = 0, fz = 0,
+        r, fx = 0,
+        fy = 0,
+        fz = 0,
         queueLength = 1,
         shiftIdx = 0,
         pushIdx = 1;
@@ -227,14 +233,46 @@ module.exports = function (options) {
             // Otherwise, run the procedure recursively on each of the current node's children.
 
             // I intentionally unfolded this loop, to save several CPU cycles.
-            if (node.quads[0]) { queue[pushIdx] = node.quads[0]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[1]) { queue[pushIdx] = node.quads[1]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[2]) { queue[pushIdx] = node.quads[2]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[3]) { queue[pushIdx] = node.quads[3]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[4]) { queue[pushIdx] = node.quads[4]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[5]) { queue[pushIdx] = node.quads[5]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[6]) { queue[pushIdx] = node.quads[6]; queueLength += 1; pushIdx += 1; }
-            if (node.quads[7]) { queue[pushIdx] = node.quads[7]; queueLength += 1; pushIdx += 1; }
+            if (node.quads[0]) {
+              queue[pushIdx] = node.quads[0];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[1]) {
+              queue[pushIdx] = node.quads[1];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[2]) {
+              queue[pushIdx] = node.quads[2];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[3]) {
+              queue[pushIdx] = node.quads[3];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[4]) {
+              queue[pushIdx] = node.quads[4];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[5]) {
+              queue[pushIdx] = node.quads[5];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[6]) {
+              queue[pushIdx] = node.quads[6];
+              queueLength += 1;
+              pushIdx += 1;
+            }
+            if (node.quads[7]) {
+              queue[pushIdx] = node.quads[7];
+              queueLength += 1;
+              pushIdx += 1;
+            }
           }
         }
       }
@@ -244,7 +282,7 @@ module.exports = function (options) {
       sourceBody.force.z += fz;
     },
 
-    insertBodies = function (bodies) {
+    insertBodies = function(bodies) {
       var x1 = Number.MAX_VALUE,
         y1 = Number.MAX_VALUE,
         z1 = Number.MAX_VALUE,
@@ -261,9 +299,24 @@ module.exports = function (options) {
         var x = pos.x;
         var y = pos.y;
         var z = pos.z;
-        if (x < x1) { x1 = x; } if (x > x2) { x2 = x; }
-        if (y < y1) { y1 = y; } if (y > y2) { y2 = y; }
-        if (z < z1) { z1 = z; } if (z > z2) { z2 = z; }
+        if (x < x1) {
+          x1 = x;
+        }
+        if (x > x2) {
+          x2 = x;
+        }
+        if (y < y1) {
+          y1 = y;
+        }
+        if (y > y2) {
+          y2 = y;
+        }
+        if (z < z1) {
+          z1 = z;
+        }
+        if (z > z2) {
+          z2 = z;
+        }
       }
 
       // Squarify the bounds.
@@ -292,18 +345,24 @@ module.exports = function (options) {
     };
 
   return {
-    insertBodies : insertBodies,
-    updateBodyForce : update,
-    options : function (newOptions) {
+    insertBodies: insertBodies,
+    updateBodyForce: update,
+    options: function(newOptions) {
       if (newOptions) {
-        if (typeof newOptions.gravity === 'number') { gravity = newOptions.gravity; }
-        if (typeof newOptions.theta === 'number') { theta = newOptions.theta; }
+        if (typeof newOptions.gravity === 'number') {
+          gravity = newOptions.gravity;
+        }
+        if (typeof newOptions.theta === 'number') {
+          theta = newOptions.theta;
+        }
 
         return this;
       }
 
-      return {gravity : gravity, theta : theta};
+      return {
+        gravity: gravity,
+        theta: theta
+      };
     }
   };
 };
-
