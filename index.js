@@ -130,13 +130,7 @@ module.exports = function(options) {
           if (isSamePosition(oldBody.pos, body.pos)) {
             // Prevent infinite subdivision by bumping one node
             // anywhere in this quadrant
-            if (node.right - node.left < 1e-8) {
-              // This is very bad, we ran out of precision.
-              // if we do not return from the method we'll get into
-              // infinite loop here. So we sacrifice correctness of layout, and keep the app running
-              // Next layout iteration should get larger bounding box in the first step and fix this
-              return;
-            }
+            var retriesCount = 3;
             do {
               var offset = random.nextDouble();
               var dx = (node.right - node.left) * offset;
@@ -146,9 +140,17 @@ module.exports = function(options) {
               oldBody.pos.x = node.left + dx;
               oldBody.pos.y = node.top + dy;
               oldBody.pos.z = node.back + dz;
+              retriesCount -= 1;
               // Make sure we don't bump it out of the box. If we do, next iteration should fix it
-            } while (isSamePosition(oldBody.pos, body.pos));
+            } while (retriesCount > 0 && isSamePosition(oldBody.pos, body.pos));
 
+            if (retriesCount === 0 && isSamePosition(oldBody.pos, body.pos)) {
+              // This is very bad, we ran out of precision.
+              // if we do not return from the method we'll get into
+              // infinite loop here. So we sacrifice correctness of layout, and keep the app running
+              // Next layout iteration should get larger bounding box in the first step and fix this
+              return;
+            }
           }
           // Next iteration should subdivide node further.
           insertStack.push(node, oldBody);
