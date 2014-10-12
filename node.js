@@ -23,6 +23,7 @@ module.exports = function Node() {
   // Center of mass coordinates
   this.massX = 0;
   this.massY = 0;
+  this.massZ = 0;
 
   // bounding box coordinates
   this.left = 0;
