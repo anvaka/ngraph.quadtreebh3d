@@ -2,7 +2,7 @@ var Body = require('ngraph.physics.primitives').Body3d;
 var Benchmark = require('benchmark');
 
 var createQuadTree = require('../'),
-    numberOfBodies = 1000;
+    numberOfBodies = 10000;
 
 console.log('Bodies #' + numberOfBodies);
 var suite = new Benchmark.Suite;

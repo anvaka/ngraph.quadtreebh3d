@@ -178,10 +178,8 @@ module.exports = function(options) {
 
         queueLength -= 1;
         shiftIdx += 1;
-        // technically there should be external "if (body !== sourceBody) {"
-        // but in practice it gives slightghly worse performance, and does not
-        // have impact on layout correctness
-        if (body && body !== sourceBody) {
+        var differentBody = (body !== sourceBody);
+        if (body && differentBody) {
           // If the current node is a leaf node (and it is not source body),
           // calculate the force exerted by the current node on body, and add this
           // amount to body's net force.
@@ -204,13 +202,14 @@ module.exports = function(options) {
           fx += v * dx;
           fy += v * dy;
           fz += v * dz;
-        } else {
+        } else if (differentBody) {
           // Otherwise, calculate the ratio s / r,  where s is the width of the region
           // represented by the internal node, and r is the distance between the body
           // and the node's center-of-mass
           dx = node.massX / node.mass - sourceBody.pos.x;
           dy = node.massY / node.mass - sourceBody.pos.y;
           dz = node.massZ / node.mass - sourceBody.pos.z;
+
           r = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
           if (r === 0) {
@@ -221,6 +220,7 @@ module.exports = function(options) {
             dz = (random.nextDouble() - 0.5) / 50;
             r = Math.sqrt(dx * dx + dy * dy + dz * dz);
           }
+
           // If s / r < θ, treat this internal node as a single body, and calculate the
           // force it exerts on sourceBody, and add this amount to sourceBody's net force.
           if ((node.right - node.left) / r < theta) {
