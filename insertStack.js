@@ -1,7 +1,7 @@
 module.exports = InsertStack;
 
 /**
- * Our implmentation of QuadTree is non-recursive to avoid GC hit
+ * Our implementation of QuadTree is non-recursive to avoid GC hit
  * This data structure represent stack of elements
  * which we are trying to insert into quad tree.
  */
@@ -17,7 +17,7 @@ InsertStack.prototype = {
     push: function (node, body) {
         var item = this.stack[this.popIdx];
         if (!item) {
-            // we are trying to avoid memory pressue: create new element
+            // we are trying to avoid memory pressure: create new element
             // only when absolutely necessary
             this.stack[this.popIdx] = new InsertStackElement(node, body);
         } else {

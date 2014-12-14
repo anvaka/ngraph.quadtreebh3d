@@ -5,8 +5,8 @@
  * http://www.cs.princeton.edu/courses/archive/fall03/cs126/assignments/barnes-hut.html
  *
  * NOTE: This module duplicates a lot of code from 2d case. Primary reason for
- * this is performance. Every time I tried to abstract away vector opertaions
- * I had negative impact on performance. So in this case I'm sacrifying code
+ * this is performance. Every time I tried to abstract away vector operations
+ * I had negative impact on performance. So in this case I'm scarifying code
  * reuse in favor of speed
  */
 
@@ -125,7 +125,7 @@ module.exports = function(options) {
           // We have to convert current leaf into internal node
           // and continue adding two nodes.
           var oldBody = node.body;
-          node.body = null; // internal nodes do not cary bodies
+          node.body = null; // internal nodes do not carry bodies
 
           if (isSamePosition(oldBody.pos, body.pos)) {
             // Prevent infinite subdivision by bumping one node
@@ -196,7 +196,7 @@ module.exports = function(options) {
             r = Math.sqrt(dx * dx + dy * dy + dz * dz);
           }
 
-          // This is standard gravition force calculation but we divide
+          // This is standard gravitation force calculation but we divide
           // by r^3 to save two operations when normalizing force vector.
           v = gravity * body.mass * sourceBody.mass / (r * r * r);
           fx += v * dx;
@@ -213,7 +213,7 @@ module.exports = function(options) {
           r = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
           if (r === 0) {
-            // Sorry about code duplucation. I don't want to create many functions
+            // Sorry about code duplication. I don't want to create many functions
             // right away. Just want to see performance first.
             dx = (random.nextDouble() - 0.5) / 50;
             dy = (random.nextDouble() - 0.5) / 50;
