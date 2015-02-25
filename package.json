@@ -4,7 +4,8 @@
   "description": "Quad Tree data structure for Barnes-Hut simulation in 3d space",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tap test/*.js",
+    "perf": "npm version && node perf/updateBodyForce.js"
   },
   "keywords": [
     "ngraph",
