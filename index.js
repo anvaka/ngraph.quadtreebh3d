@@ -32,14 +32,14 @@ module.exports = function(options) {
       // To avoid pressure on GC we reuse nodes.
       var node = nodesCache[currentInCache];
       if (node) {
-        node.quads[0] = null;
-        node.quads[4] = null;
-        node.quads[1] = null;
-        node.quads[5] = null;
-        node.quads[2] = null;
-        node.quads[6] = null;
-        node.quads[3] = null;
-        node.quads[7] = null;
+        node.quad0 = null;
+        node.quad4 = null;
+        node.quad1 = null;
+        node.quad5 = null;
+        node.quad2 = null;
+        node.quad6 = null;
+        node.quad3 = null;
+        node.quad7 = null;
         node.body = null;
         node.mass = node.massX = node.massY = node.massZ = 0;
         node.left = node.right = node.top = node.bottom = node.front = node.back = 0;
@@ -103,7 +103,7 @@ module.exports = function(options) {
             front = back + (back - oldBack);
           }
 
-          var child = node.quads[quadIdx];
+          var child = getChild(node, quadIdx);
           if (!child) {
             // The node is internal but this quadrant is not taken. Add subnode to it.
             child = newNode();
@@ -115,7 +115,7 @@ module.exports = function(options) {
             child.front = front;
             child.body = body;
 
-            node.quads[quadIdx] = child;
+            setChild(node, quadIdx, child);
           } else {
             // continue searching in this quadrant.
             insertStack.push(child, body);
@@ -235,43 +235,43 @@ module.exports = function(options) {
             // Otherwise, run the procedure recursively on each of the current node's children.
 
             // I intentionally unfolded this loop, to save several CPU cycles.
-            if (node.quads[0]) {
-              queue[pushIdx] = node.quads[0];
+            if (node.quad0) {
+              queue[pushIdx] = node.quad0;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[1]) {
-              queue[pushIdx] = node.quads[1];
+            if (node.quad1) {
+              queue[pushIdx] = node.quad1;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[2]) {
-              queue[pushIdx] = node.quads[2];
+            if (node.quad2) {
+              queue[pushIdx] = node.quad2;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[3]) {
-              queue[pushIdx] = node.quads[3];
+            if (node.quad3) {
+              queue[pushIdx] = node.quad3;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[4]) {
-              queue[pushIdx] = node.quads[4];
+            if (node.quad4) {
+              queue[pushIdx] = node.quad4;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[5]) {
-              queue[pushIdx] = node.quads[5];
+            if (node.quad5) {
+              queue[pushIdx] = node.quad5;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[6]) {
-              queue[pushIdx] = node.quads[6];
+            if (node.quad6) {
+              queue[pushIdx] = node.quad6;
               queueLength += 1;
               pushIdx += 1;
             }
-            if (node.quads[7]) {
-              queue[pushIdx] = node.quads[7];
+            if (node.quad7) {
+              queue[pushIdx] = node.quad7;
               queueLength += 1;
               pushIdx += 1;
             }
@@ -368,3 +368,26 @@ module.exports = function(options) {
     }
   };
 };
+
+function getChild(node, idx) {
+  if (idx === 0) return node.quad0;
+  if (idx === 1) return node.quad1;
+  if (idx === 2) return node.quad2;
+  if (idx === 3) return node.quad3;
+  if (idx === 4) return node.quad4;
+  if (idx === 5) return node.quad5;
+  if (idx === 6) return node.quad6;
+  if (idx === 7) return node.quad7;
+  return null;
+}
+
+function setChild(node, idx, child) {
+  if (idx === 0) node.quad0 = child;
+  else if (idx === 1) node.quad1 = child;
+  else if (idx === 2) node.quad2 = child;
+  else if (idx === 3) node.quad3 = child;
+  else if (idx === 4) node.quad4 = child;
+  else if (idx === 5) node.quad5 = child;
+  else if (idx === 6) node.quad6 = child;
+  else if (idx === 7) node.quad7 = child;
+}
