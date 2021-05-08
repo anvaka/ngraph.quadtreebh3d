@@ -4,7 +4,7 @@
   "description": "Quad Tree data structure for Barnes-Hut simulation in 3d space",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js",
+    "test": "tap --branches=50 --lines=50 --statements=70 --functions=70 test/*.js",
     "perf": "npm version && node perf/updateBodyForce.js"
   },
   "keywords": [
@@ -21,9 +21,9 @@
     "url": "https://github.com/anvaka/ngraph.quadtreebh3d"
   },
   "devDependencies": {
-    "benchmark": "~1.0.0",
+    "benchmark": "~2.1.4",
     "ngraph.physics.primitives": "^1.0.0",
-    "tap": "^14.2.2"
+    "tap": "^15.0.9"
   },
   "dependencies": {
     "ngraph.random": "^1.0.0"

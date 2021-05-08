@@ -9,7 +9,7 @@ harness.test('insert and update update forces', function (t) {
 
   tree.insertBodies([body]);
   tree.updateBodyForce(body);
-  t.equivalent(body, clone, "The body should not be changed - there are no forces acting on it");
+  t.same(body, clone, "The body should not be changed - there are no forces acting on it");
   t.end();
 });
 
