@@ -1,5 +1,13 @@
 # ngraph.quadtreebh3d
 
+**Note:** This project was superceded by https://github.com/anvaka/ngraph.forcelayout.
+You can still use it as a reference for your own understanding of oct-trees,
+but ngraph.forcelayout contains more efficient implementation that can work
+for arbitrary number of dimensions.
+
+
+## Old readme file
+
 Quad Tree data structure for Barnes-Hut simulation in 3d space. Technically it should be named OctTree, since it's not a quad tree. But for parity with 2d interface it's currently called quadtree. Let me know if you think it should be changed :). 
 
 This project is part of [ngraph family](https://github.com/anvaka/ngraph). If you need 2d quad tree follow to [ngraph.quadtreebh](https://github.com/anvaka/ngraph.quadtreebh).
